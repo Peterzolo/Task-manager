@@ -3,7 +3,7 @@ import * as bcrypt from 'bcryptjs';
 import {
   ConflictException,
   Injectable,
-  //   NotFoundException,
+    NotFoundException,
 } from '@nestjs/common';
 import { AuthCredentialsDto } from './authDto/auth.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -31,6 +31,27 @@ export class AuthService {
     });
 
     return createdUser.save();
+  }
+
+
+  async signIn(authCredentialsDto: AuthCredentialsDto): Promise<Auth> {
+    const { email, password } = authCredentialsDto;
+
+    // Find the user by email
+    const user = await this.authModel.findOne({ email });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    // Check if the provided password matches the stored hashed password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new NotFoundException('Invalid credentials');
+    }
+
+    return user;
   }
 
 }
