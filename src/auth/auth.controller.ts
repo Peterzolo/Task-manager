@@ -14,19 +14,23 @@ export class AuthController {
     await this.authService.signUp(authCredentialsDto);
     return { message: 'User signed up successfully' };
   }
+
+
   @Post('signin')
   async signIn(
     @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
     @Res() response: Response,
   ): Promise<void> {
     try {
-      // Call the signIn method of AuthService
-      await this.authService.signIn(authCredentialsDto, response);
-
-      // If signIn succeeds, set response with success message
+      const token = await this.authService.signIn(authCredentialsDto);
+      response.cookie('auth-token', token, {
+        httpOnly: true,
+        maxAge: 3600000,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+      });
       response.status(200).json({ message: 'Sign-in successful' });
     } catch (error) {
-      // Handle any errors from AuthService
       response.status(error.getStatus()).json({ message: error.message });
     }
   }

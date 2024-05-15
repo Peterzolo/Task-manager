@@ -38,38 +38,24 @@ export class AuthService {
     return createdUser.save();
   }
 
-  async signIn(authCredentialsDto: AuthCredentialsDto, response: any): Promise<void> {
+ 
+  async signIn(authCredentialsDto: AuthCredentialsDto): Promise<string> {
     const { email, password } = authCredentialsDto;
 
     const user = await this.authModel.findOne({ email });
-
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
-
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const payload = { email: user.email, sub: user._id }; 
-    const token = this.jwtService.sign(payload); 
-
- 
-    this.setTokenCookie(response, token);
+    const payload = { email: user.email, sub: user._id };
+    return this.jwtService.sign(payload);
   }
 
-
-  private setTokenCookie(response: any, token: string): void {
-    
-    response.cookie('auth-token', token, {
-      httpOnly: true, 
-      maxAge: 3600000, 
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'strict', 
-    });
-  }
 }
 
 
