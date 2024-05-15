@@ -1,6 +1,12 @@
 
 
+import { Request } from 'express';
 
+export interface IAuth {
+  email: string;
+  password: string;
+  timestamp?: Date;
+}
 
 
 export type SignInResponse = {
@@ -8,19 +14,6 @@ export type SignInResponse = {
     token?: string;
   };
   
-
-  export interface IAuth {
-    id: number;
-    password: string;
-    email: string;
-  }
-
-
- 
-  // auth.types.ts
-
-import { Request } from 'express';
-
 export interface JwtPayload {
   email: string;
   sub: string;
