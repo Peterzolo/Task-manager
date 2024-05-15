@@ -63,7 +63,7 @@ export class AuthService {
 
   private setTokenCookie(response: any, token: string): void {
     
-    response.cookie('jwt', token, {
+    response.cookie('auth-token', token, {
       httpOnly: true, 
       maxAge: 3600000, 
       secure: process.env.NODE_ENV === 'production', 
