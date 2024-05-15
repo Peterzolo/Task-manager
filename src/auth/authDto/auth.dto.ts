@@ -6,6 +6,14 @@ export class AuthCredentialsDto {
 
   @IsString()
   @IsNotEmpty()
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  phone: string;
+
+  @IsString()
+  @IsNotEmpty()
   @MinLength(6)
   password: string;
 

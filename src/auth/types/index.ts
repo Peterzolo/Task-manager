@@ -4,6 +4,8 @@ import { Request } from 'express';
 
 export interface IAuth {
   email: string;
+  name:string;
+  phone:string;
   password: string;
   timestamp?: Date;
 }
