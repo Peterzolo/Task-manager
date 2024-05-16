@@ -8,6 +8,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConfig } from './helper/jwt.config';
 import { AuthMiddleware } from './helper/middleware';
 import { TaskModule } from './task/task.module';
+import { MyWebSocketGateway } from './helper/socket.gateway';
+
 
 @Module({
   imports: [
@@ -21,7 +23,7 @@ import { TaskModule } from './task/task.module';
     TaskModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,MyWebSocketGateway],
 })
 
 export class AppModule implements NestModule {
