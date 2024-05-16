@@ -1,19 +1,19 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
-export class TaskDto {
-  @IsEmail()
+
+import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
+import { TaskPriority, TaskStatus } from '../types'; 
+
+export class CreateTaskDto {
+  @IsString()
+  @IsNotEmpty()
   title: string;
 
   @IsString()
-  @IsNotEmpty()
-  description: string;
+  description?: string;
 
-  @IsString()
-  status: string;
+  @IsEnum(TaskPriority)
+  priority?: TaskPriority;
 
-  @IsString()
-  priority: string;
-
-  @IsString()
-  user: string;
+  @IsEnum(TaskStatus)
+  status?: TaskStatus;
 }

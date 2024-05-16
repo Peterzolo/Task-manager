@@ -1,18 +1,16 @@
 
 
-// auth.middleware.ts
-
 import { Injectable, NestMiddleware, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Request, Response, NextFunction } from 'express';
-import { AuthenticatedRequest, JwtPayload } from 'src/auth/types';
+import { Response, NextFunction } from 'express';
 
+import { AuthenticatedRequest, JwtPayload } from 'src/auth/types'; // Assuming JwtPayload is defined in auth/types
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   constructor(private readonly jwtService: JwtService) {}
 
-  use(req: Request, res: Response, next: NextFunction) {
+  use(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const token = req.cookies['auth-token'];
 
     if (!token) {
@@ -21,7 +19,8 @@ export class AuthMiddleware implements NestMiddleware {
 
     try {
       const decoded = this.jwtService.verify<JwtPayload>(token);
-      (req as AuthenticatedRequest).user = decoded;
+      req.email = decoded.email;
+      req.id = decoded.id;
       next();
     } catch (error) {
       throw new UnauthorizedException('Unauthorized: Invalid token');

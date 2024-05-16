@@ -25,3 +25,11 @@ export interface JwtPayload {
 export interface AuthenticatedRequest extends Request {
   user: JwtPayload;
 }
+
+
+
+export interface AuthenticatedRequest extends Request {
+  email?: string;
+  id?: string;
+  sub?: string;
+}

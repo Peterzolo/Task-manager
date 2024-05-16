@@ -26,7 +26,7 @@ export class Task implements ITask {
   @Prop({ default: Date.now })
   createdAt: Date;
 
-  @Prop({ type: 'ObjectId', ref: 'Auth', required: true })
+  @Prop({ type: 'ObjectId', ref: 'Auth'})
   user: string; 
 
   @Prop({ default: Date.now })
