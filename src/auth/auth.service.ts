@@ -6,7 +6,7 @@ import {
     NotFoundException,
     UnauthorizedException,
 } from '@nestjs/common';
-import { AuthCredentialsDto } from './authDto/auth.dto';
+import { AuthenticationDto, SignUpDto } from './authDto/auth.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Auth,AuthDocument} from './schema/auth.model';
 import { JwtService } from '@nestjs/jwt';
@@ -17,8 +17,8 @@ export class AuthService {
   private jwtService: JwtService,
 ) {}
 
-  async signUp(authCredentialsDto: AuthCredentialsDto): Promise<Auth> {
-    const { email, password } = authCredentialsDto;
+  async signUp(signUpDto: SignUpDto): Promise<Auth> {
+    const { email, password,name,phone } = signUpDto;
 
   
     const existingUser = await this.authModel.findOne({ email });
@@ -26,11 +26,12 @@ export class AuthService {
       throw new ConflictException('Email already exists');
     }
 
-   
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const createdUser = new this.authModel({
       email,
+      name,
+      phone,
       password: hashedPassword,
       timestamp: new Date(),
     });
@@ -39,8 +40,8 @@ export class AuthService {
   }
 
  
-  async signIn(authCredentialsDto: AuthCredentialsDto): Promise<string> {
-    const { email, password } = authCredentialsDto;
+  async signIn(authenticationDto: AuthenticationDto): Promise<string> {
+    const { email, password } = authenticationDto;
 
     const user = await this.authModel.findOne({ email });
     if (!user) {
