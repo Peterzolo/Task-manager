@@ -13,7 +13,7 @@ export class TaskResponsePresenter {
       priority: task.priority,
       status: task.status,
       timestamp: task.timestamp,
-      user: task.user.toString(), 
+      user: task.user, 
     };
 
     return taskResponseDto;

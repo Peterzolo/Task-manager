@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ICreateTask, ITask } from './types';
+import { ICreateTask, ITask, TaskResponseDto } from './types';
 import { Task } from './schema/task.model';
-import { NotFoundError } from 'rxjs';
 import { TaskNotFoundException } from 'src/helper/error';
+import { TaskResponsePresenter } from './presenter/task.presenter';
 
 @Injectable()
 export class TaskService {
@@ -21,21 +21,19 @@ export class TaskService {
   }
 
 
-
-  async getAllTasks(): Promise<ITask[]> {
+  async getAllTasks(): Promise<TaskResponseDto[]> {
     const tasks = await this.taskModel.find().exec();
-
     if(!tasks.length){
       throw new TaskNotFoundException( "Task not available")
     }
-    return tasks;
+    return tasks.map(task => TaskResponsePresenter.present(task));
   }
 
-  async getTaskById(id: string): Promise<ITask | null> {
+  async getTaskById(id: string): Promise<TaskResponseDto | null> {
     const task = await this.taskModel.findById(id).exec();
     if(!task){
       throw new TaskNotFoundException( `Task with id ${id} not found`)
     }
-    return task;
+    return TaskResponsePresenter.present(task);
   }
 }
