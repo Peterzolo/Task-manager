@@ -15,7 +15,6 @@ export class TaskController {
   async createTask(@Body() createTaskDto: CreateTaskDto, @Req() req: AuthenticatedRequest) {
     try {
       const user = req.id as string; 
-      console.log("USER", user)
       const createdTask = await this.taskService.createTask(createTaskDto, user);
       return { success: true, task: createdTask };
     } catch (error) {

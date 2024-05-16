@@ -9,7 +9,6 @@ import { ITask,TaskPriority, TaskStatus  } from '../types';
 @Schema()
 export class Task implements ITask {
 
-
   @Prop({ required: true })
   title: string;
 

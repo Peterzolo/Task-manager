@@ -3,10 +3,12 @@
 import { Request } from 'express';
 
 export interface ITask {
-  title: string;
-  description:string;
-  priority:TaskPriority
-  status: TaskStatus;
+  id?:string;
+  title?: string;
+  description?:string;
+  priority?:TaskPriority
+  status?: TaskStatus;
+  user?:string;
   timestamp?: Date;
 }
 
@@ -30,4 +32,23 @@ export enum TaskStatus {
   IM_PROGRESS = "IM_PROGRESS",
   DEV_REVIEW = "DEV_REVIEW",
   COMPLETED = "COMPLETED",
+}
+
+
+
+export class TaskResponseDto {
+  id: string;
+  title: string;
+  description: string;
+  priority: string;
+  status: string;
+  timestamp: Date;
+  user: string;
+}
+
+
+export interface IReadTask {
+  id?:string;
+  status:string;
+  priority?:string;
 }
