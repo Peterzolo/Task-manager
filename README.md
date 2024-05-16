@@ -3,6 +3,10 @@
 ## Name
  Mini Task Management Application
 
+ ## POSTMAN DOCUMENTATION:
+   https://documenter.getpostman.com/view/10754987/2sA3JRaKwg
+   
+
 ## Description
 This is a simple task management application built with Node, nestjs, Typescript and MongoDb.
 
