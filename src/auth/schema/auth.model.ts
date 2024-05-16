@@ -38,7 +38,7 @@ export const AuthSchema = SchemaFactory.createForClass(Auth);
 AuthSchema.set('toJSON', {
   transform: (doc, ret) => {
     delete ret.password; 
-    ret.authId = ret._id; 
+    ret.id = ret._id; 
     delete ret._id; 
     delete ret.__v; 
     return ret;

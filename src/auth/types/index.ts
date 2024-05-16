@@ -18,6 +18,7 @@ export type SignInResponse = {
   
 export interface JwtPayload {
   email: string;
+  id: string;
   sub: string;
 }
 

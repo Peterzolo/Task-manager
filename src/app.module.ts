@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConfig } from './helper/jwt.config';
 import { AuthMiddleware } from './helper/middleware';
+import { TaskModule } from './task/task.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AuthMiddleware } from './helper/middleware';
     MongooseModule.forRoot(process.env.MONGODB_URI),
     JwtModule.register(jwtConfig),
     AuthModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,9 +1,9 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class TaskDto {
   @IsEmail()
   title: string;
-  
+
   @IsString()
   @IsNotEmpty()
   description: string;
@@ -13,4 +13,7 @@ export class TaskDto {
 
   @IsString()
   priority: string;
+
+  @IsString()
+  user: string;
 }

@@ -3,7 +3,7 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { ITask, TaskPriority, TaskStatus } from '../types';
+import { ITask,TaskPriority, TaskStatus  } from '../types';
 
 
 @Schema()
@@ -34,10 +34,10 @@ export class Task implements ITask {
 }
 
 
-export type AuthDocument = Task & Document;
-export const AuthSchema = SchemaFactory.createForClass(Task);
+export type TaskDocument = Task & Document;
+export const TaskSchema = SchemaFactory.createForClass(Task);
 
-AuthSchema.set('toJSON', {
+TaskSchema.set('toJSON', {
   transform: (doc, ret) => {
     ret.id = ret._id; 
     delete ret._id; 

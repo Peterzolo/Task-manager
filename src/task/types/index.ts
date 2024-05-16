@@ -10,9 +10,14 @@ export interface ITask {
   timestamp?: Date;
 }
 
-
-
-  
+export interface ICreateTask {
+  title: string;
+  description?:string;
+  priority?:TaskPriority
+  status?: TaskStatus;
+  user?: string;
+  timestamp?: Date;
+}
 
 export enum TaskPriority {
   LOW ="LOW",
