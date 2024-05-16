@@ -28,14 +28,14 @@ This is a simple task management application built with Node, nestjs, Typescript
 
 ## Installation
 
-- Clone the repo :git@github.com:Peterzolo/Task-manager.git
+- Clone the repo : git@github.com:Peterzolo/Task-manager.git
 - ```bash
 
 
-- .env example : -Set up environment variables:
-````MONGODB_URI = 
-````JWT_SECRET =
-````EXPIRE =
+- env example : -Set up environment variables:
+- MONGODB_URI = 
+- JWT_SECRET =
+- EXPIRE =
 
 - cd task-management-app
 
@@ -54,11 +54,13 @@ $ npm run dev
 $ npm run start:prod
 ```
 
+## Usage
+- Sign up with email, name, phone and password
+- Log in with your right credentials
+- Create a task: payload are : title, description, priority, status
+- Fetch single or all tasks
+- Update or delete task
 
-
-
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
 ## Stay in touch
 
