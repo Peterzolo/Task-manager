@@ -15,12 +15,11 @@ export class Task implements ITask {
   @Prop()
   description: string;
 
-  @Prop({default: TaskPriority.LOW})
+  @Prop({ enum: TaskPriority, default: TaskPriority.LOW })
   priority: TaskPriority;
 
-
-  @Prop({ default: TaskStatus.TODO })
-  status: TaskStatus
+  @Prop({ enum: TaskStatus, default: TaskStatus.TODO })
+  status: TaskStatus;
 
   @Prop({ default: Date.now })
   createdAt: Date;

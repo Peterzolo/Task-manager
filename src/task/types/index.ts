@@ -52,3 +52,12 @@ export interface IReadTask {
   status:string;
   priority?:string;
 }
+
+// src/task/types.ts
+
+export interface IUpdateTask {
+  title?: string;
+  description?: string;
+  priority?: TaskPriority;
+  status?: TaskStatus;
+}
