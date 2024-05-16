@@ -2,10 +2,7 @@
 
 
 
-import { Task } from "../schema/task.model";
 import { ITask, TaskResponseDto } from "../types";
-
-
 
 export class TaskResponsePresenter {
   static present(task: ITask): TaskResponseDto {

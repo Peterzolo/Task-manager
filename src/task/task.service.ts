@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ICreateTask } from './types';
+import { ICreateTask, ITask } from './types';
 import { Task } from './schema/task.model';
+import { NotFoundError } from 'rxjs';
+import { TaskNotFoundException } from 'src/helper/error';
 
 @Injectable()
 export class TaskService {
@@ -16,5 +18,24 @@ export class TaskService {
       user: userId,
     });
     return await createdTask.save();
+  }
+
+
+
+  async getAllTasks(): Promise<ITask[]> {
+    const tasks = await this.taskModel.find().exec();
+
+    if(!tasks.length){
+      throw new TaskNotFoundException( "Task not available")
+    }
+    return tasks;
+  }
+
+  async getTaskById(id: string): Promise<ITask | null> {
+    const task = await this.taskModel.findById(id).exec();
+    if(!task){
+      throw new TaskNotFoundException( `Task with id ${id} not found`)
+    }
+    return task;
   }
 }
